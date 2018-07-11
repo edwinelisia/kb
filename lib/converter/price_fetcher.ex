@@ -1,4 +1,4 @@
-defmodule Kb.PriceFetcher do
+defmodule ConverterWeb.PriceFetcher do
   @moduledoc false
   use GenServer
 
@@ -7,6 +7,9 @@ defmodule Kb.PriceFetcher do
   end
 
   def init(state) do
+    :ets.new(:crypto_price, [:set, :public, :named_table])
+    get_coinbase_usd()
+    get_coingecko_ruble()
     schedule_work() # Schedule work to be performed on start
     {:ok, state}
   end
