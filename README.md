@@ -11,3 +11,8 @@ ruby conversion.rb
 - irb
 - require_relative 'converter'
 - CryptoConverter.btc_to_usd(1) 1 is the BTC amount
+
+
+# Elixir
+- iex -S mix
+- Kb.Converter.get_usd_to_btc(10000) (Using ETS)

@@ -22,7 +22,7 @@ module CryptoConverter
       response_array = JSON.parse(response.response_body)
       last_price = response_array.last
       average_price = (last_price[1] + last_price[2]) / 2
-      
+
       from, to = from_to.split('-')
       if from == 'btc'
         value * average_price
