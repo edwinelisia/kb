@@ -14,5 +14,6 @@ ruby conversion.rb
 
 
 # Elixir
+- mix deps.get
 - iex -S mix
 - Kb.Converter.get_usd_to_btc(10000) (Using ETS)
