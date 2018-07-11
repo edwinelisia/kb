@@ -10,4 +10,10 @@ ruby conversion.rb
 ## To run as library
 - irb
 - require_relative 'converter'
-- CryptoConverter.btc_to_usd(1) 1 is the BTC amount
+- CryptoConverter.convert('btc-usd', 1)
+
+
+# Elixir
+- mix deps.get
+- iex -S mix
+- Kb.Converter.get_usd_to_btc(10000) (Using ETS)
