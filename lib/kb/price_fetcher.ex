@@ -1,20 +1,28 @@
 defmodule Kb.PriceFetcher do
   @moduledoc false
-  use Task
+  use GenServer
 
   def start_link(_arg) do
-    Task.start_link(&get_prices/0)
+    GenServer.start_link(__MODULE__, %{})
   end
 
-  def get_prices() do
-    receive do
-    after
-      1_800_000 ->
-        IO.puts "30 minutes elapsed, fetching Prices from Coinbase & Coingecko"
-        get_coinbase_usd()
-        get_coingecko_ruble()
-        get_prices()
-    end
+  def init(state) do
+    schedule_work() # Schedule work to be performed on start
+    {:ok, state}
+  end
+
+  def handle_info(:work, state) do
+    # Do the desired work here
+    IO.puts "30 minutes elapsed, fetching Prices from Coinbase & Coingecko"
+    get_coinbase_usd()
+    get_coingecko_ruble()
+
+    schedule_work() # Reschedule once more
+    {:noreply, state}
+  end
+
+  defp schedule_work() do
+    Process.send_after(self(), :work, 1_800_000) # In 30 minutes
   end
 
   def get_coinbase_usd do
