@@ -18,10 +18,23 @@ module CryptoConverter
     last_price = response_array.last
     average_price = (last_price[1] + last_price[2]) / 2
     total_price = btc * average_price
-    puts "#{Time.at(last_price.first)}: #{total_price}"
+    puts "#{Time.at(last_price.first)}: USD #{total_price} "
 
     total_price
+  end
+
+  def self.usd_to_btc(usd)
+    response = Typhoeus.get(URL)
+    response_array = JSON.parse(response.response_body)
+
+    last_price = response_array.last
+    average_price = (last_price[1] + last_price[2]) / 2
+    total_btc = usd / average_price
+    puts "#{Time.at(last_price.first)}: BCH #{total_btc}"
+
+    total_btc
   end
 end
 
 CryptoConverter.btc_to_usd(1)
+CryptoConverter.usd_to_btc(10000)
